@@ -1,4 +1,6 @@
-RegisterCommand('countyems', function(source)
+NDCore = exports["ND_Core"]:GetCoreObject()
+
+RegisterCommand('testems', function(source)
 	local player = GetPlayerPed(-1)
 	local veh = GetVehiclePedIsUsing(player)
     local Health = GetEntityHealth(player)
@@ -28,12 +30,16 @@ RegisterCommand('countyems', function(source)
         ClearPedBloodDamage(player);
         SetEntityCoords(player, Config.HospitalCoords.x, Config.HospitalCoords.y, Config.HospitalCoords.z, false, false, false, false)
         SetEntityHeading(player, Config.HospitalCoords.h)
-        TriggerEvent('chatMessage', "[TD] You have been discharged from the hospital.")
-         --[[exports['t-notify']:Alert({
-             style = 'Success', 
-            message = 'You have been discharged from the hospital'
-        })     -- Example of using a notification resource instead of a chat message.
-        ]]
+        if Config.NDFramework then
+            TriggerServerEvent("TD:DeductMoney")
+        else
+            TriggerEvent('chatMessage', "[TD] You have been discharged from the hospital.")
+            --[[exports['t-notify']:Alert({
+                style = 'Success', 
+                message = 'You have been discharged from the hospital'
+            })     -- Example of using a notification resource instead of a chat message.
+            ]]
+        end
     else
         TriggerEvent('chatMessage', "[TD] You are not Injured or dead.")
     end
