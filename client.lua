@@ -1,6 +1,6 @@
 NDCore = exports["ND_Core"]:GetCoreObject()
 
-RegisterCommand('testems', function(source)
+RegisterCommand('countyems', function(source)
 	local player = GetPlayerPed(-1)
 	local veh = GetVehiclePedIsUsing(player)
     local Health = GetEntityHealth(player)
